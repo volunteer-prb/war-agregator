@@ -1,0 +1,134 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gallery": {
+      "get": {
+        "operationId": "AppController_getGallery",
+        "parameters": [
+          {
+            "name": "from",
+            "required": false,
+            "in": "query",
+            "description": "Time until which images should be fetched. Number of ms since the 1st of Jan 1970. Default is now.",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Max number of images that should be fetched. Default 32.",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ImageDto"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not images found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "info": {
+    "title": "War Aggregator",
+    "description": "The API for War Aggregator UI",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "ImageDto": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Date of publication as ISO string"
+          },
+          "originalImgUrl": {
+            "type": "string"
+          },
+          "galleryImgUrl": {
+            "type": "string"
+          },
+          "thumbnailImgUrl": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "timestamp",
+          "originalImgUrl",
+          "source"
+        ]
+      },
+      "ErrorDto": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "description": "HTTP Status Code"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "statusCode",
+          "message"
+        ]
+      }
+    }
+  }
+}
