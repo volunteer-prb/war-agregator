@@ -9,7 +9,8 @@ const queryClient = new QueryClient();
 function Picture({ pictureData }: { pictureData: Response<'/gallery', 'get'>[200]['content']['application/json'][0] }) {
   return <div>
     <img src={pictureData.originalImgUrl}></img>
-    <div> source - {pictureData.source}, time: {pictureData.timestamp}</div>
+    <div> source - {pictureData.source}</div>
+    <div> time - {pictureData.timestamp}</div>
   </div>
 }
 
@@ -21,7 +22,7 @@ function Gallery() {
     return <>{result.value.map((val) => <Picture pictureData={val} />
     )}</>
   else
-    return <div>result.status</div>
+    return <div>{result.status}</div>
 }
 
 function App() {
