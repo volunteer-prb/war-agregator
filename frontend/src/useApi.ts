@@ -5,7 +5,6 @@ import * as api from './open-api'
 
 type GetOrProp<T, P extends string> = T extends { [key in P]: infer R } ? R : never
 type NoNever<T> = { [P in keyof T as T[P] extends never ? never : P]: T[P] }
-type NeverToUndefined<T> = { [P in keyof T]: T[P] extends never ? undefined : T[P] }
 
 type Paths = keyof api.paths
 type Methods<PATH extends Paths> = keyof api.paths[PATH]
