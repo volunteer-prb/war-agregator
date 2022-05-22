@@ -39,7 +39,9 @@ export class AppController {
     return Array(limit).fill(null).map((_, i) => {
       return {
         source: `http://fake-source-${i}-limit-${limit}-from-${new Date(from).toDateString().replace(' ', '_')}.com`,
-        originalImgUrl: 'https://www.fillmurray.com/300/200',
+        originalImgUrl: 'https://www.fillmurray.com/3000/2000',
+        thumbnailImgUrl: 'https://www.fillmurray.com/300/200',
+        galleryImgUrl: 'https://www.fillmurray.com/1920/1080',
         timestamp: new Date(from),
       }
     })
