@@ -32,6 +32,22 @@ function Header() {
   );
 }
 
+function Footer() {
+  const href = 'https://github.com/volunteer-prb/war-agregator';
+  return (
+    <div className="py-2 px-4 bg-theme-secondary text-white text-right">
+      <a
+        className="underline"
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {href}
+      </a>
+    </div>
+  );
+}
+
 function Gallery() {
   const result = useApi('/gallery', 'get', { query: {} });
   console.log(result);
@@ -52,6 +68,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <Header />
         <Gallery />
+        <Footer />
       </QueryClientProvider>
     </div>
   );
