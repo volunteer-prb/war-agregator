@@ -1,6 +1,6 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { Response, useApi } from './useApi';
+import { Response, useApi } from '../../api/useApi';
 
 const queryClient = new QueryClient();
 
