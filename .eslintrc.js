@@ -1,9 +1,12 @@
+const { join } = require('path');
+
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: 'tsconfig.json',
-    tsconfigRootDir: __dirname,
-    sourceType: 'module',
+    project: [
+      join(__dirname, 'frontend', 'tsconfig.json'),
+      join(__dirname, 'backend', 'tsconfig.json'),
+    ],
   },
   plugins: ['@typescript-eslint/eslint-plugin'],
   extends: [

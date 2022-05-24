@@ -1,12 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQueries,
-  useQuery,
-} from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Response, useApi } from './useApi';
 
 const queryClient = new QueryClient();
@@ -21,7 +15,7 @@ function Picture({
 }) {
   return (
     <div className="bg-slate-100 rounded-xl m-8 p-8 w-fit hover:scale-110 transition-transform">
-      <img src={pictureData.thumbnailImgUrl}></img>
+      <img alt="thumbnail" src={pictureData.thumbnailImgUrl}></img>
       <div> source - {pictureData.source}</div>
       <div> time - {pictureData.timestamp}</div>
     </div>
