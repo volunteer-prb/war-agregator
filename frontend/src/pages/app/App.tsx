@@ -50,7 +50,6 @@ function Footer() {
 
 function Gallery() {
   const result = useApi('/gallery', 'get', { query: {} });
-  console.log(result);
   if (result.status === 'success' && result.statusCode === 200)
     return (
       <div className="grid grid-cols-4">
