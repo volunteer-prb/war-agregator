@@ -10,8 +10,6 @@ import { AppService } from './app.service';
 import { ErrorDto } from './error.dto';
 import { ImageDto } from './image.dto';
 
-const dayInMS = 1000 * 60 * 60 * 24;
-
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
