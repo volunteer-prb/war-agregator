@@ -1,25 +1,9 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { Response, useApi } from '../../api/useApi';
+
+import Gallery from './Gallery';
 
 const queryClient = new QueryClient();
-
-function Picture({
-  pictureData,
-}: {
-  pictureData: Response<
-    '/gallery',
-    'get'
-  >[200]['content']['application/json'][0];
-}) {
-  return (
-    <div className="bg-slate-200 rounded-xl m-8 p-8 w-fit hover:scale-110 transition-transform">
-      <img alt="thumbnail" src={pictureData.thumbnailImgUrl}></img>
-      <div> source - {pictureData.source}</div>
-      <div> time - {pictureData.timestamp}</div>
-    </div>
-  );
-}
 
 function Header() {
   return (
@@ -48,22 +32,9 @@ function Footer() {
   );
 }
 
-function Gallery() {
-  const result = useApi('/gallery', 'get', { query: {} });
-  if (result.status === 'success' && result.statusCode === 200)
-    return (
-      <div className="grid grid-cols-4">
-        {result.value.map((val) => (
-          <Picture pictureData={val} />
-        ))}
-      </div>
-    );
-  else return <div>{result.status}</div>;
-}
-
 function App() {
   return (
-    <div className="bg-theme-main">
+    <div className="bg-theme-main flex flex-col h-screen">
       <QueryClientProvider client={queryClient}>
         <Header />
         <Gallery />
