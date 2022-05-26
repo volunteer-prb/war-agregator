@@ -84,8 +84,7 @@
         "type": "object",
         "properties": {
           "timestamp": {
-            "format": "date-time",
-            "type": "string",
+            "type": "number",
             "description": "Date of publication as ISO string"
           },
           "originalImgUrl": {

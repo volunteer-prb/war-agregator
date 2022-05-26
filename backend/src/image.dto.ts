@@ -4,7 +4,7 @@ export class ImageDto {
   @ApiProperty({
     description: 'Date of publication as ISO string',
   })
-  timestamp: Date;
+  timestamp: number;
   originalImgUrl: string;
   galleryImgUrl?: string;
   thumbnailImgUrl?: string;

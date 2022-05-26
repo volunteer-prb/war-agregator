@@ -44,7 +44,7 @@ export class AppController {
     @Query('from', new DefaultValuePipe(Date.now()), ParseIntPipe) from: number,
     @Query('limit', new DefaultValuePipe(32), ParseIntPipe) limit: number,
   ): ImageDto[] {
-    const thisDay = Array(limit / 2)
+    return Array(limit)
       .fill(null)
       .map((_, i) => {
         return {
@@ -54,24 +54,8 @@ export class AppController {
           originalImgUrl: 'https://www.fillmurray.com/3000/2000',
           thumbnailImgUrl: 'https://www.fillmurray.com/300/200',
           galleryImgUrl: 'https://www.fillmurray.com/1920/1080',
-          timestamp: new Date(from),
+          timestamp: from - i,
         };
       });
-    const prevDay = Array(limit / 2)
-      .fill(null)
-      .map((_, i) => {
-        return {
-          source: `http://fake-source-${i}-limit-${limit}-from-${new Date(
-            from - dayInMS,
-          )
-            .toDateString()
-            .replace(' ', '_')}.com`,
-          originalImgUrl: 'https://www.fillmurray.com/3000/2000',
-          thumbnailImgUrl: 'https://www.fillmurray.com/300/200',
-          galleryImgUrl: 'https://www.fillmurray.com/1920/1080',
-          timestamp: new Date(from - dayInMS),
-        };
-      });
-    return [...thisDay, ...prevDay];
   }
 }
