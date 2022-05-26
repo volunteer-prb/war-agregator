@@ -47,11 +47,11 @@ const Gallery = () => {
   }, [fetchNextPage]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Placeholder>Loading...</Placeholder>;
   }
 
   if (isError) {
-    return <div>Error!</div>;
+    return <Placeholder className="text-theme-red">Error!</Placeholder>;
   }
 
   return (
@@ -85,6 +85,19 @@ function Picture({ pictureData }: { pictureData: FetchResult[0] }) {
       <div> time - {pictureData.timestamp}</div>
     </div>
   );
+}
+
+function Placeholder({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  const classNames = ['flex-1 flex justify-center items-center', className]
+    .filter(Boolean)
+    .join(' ');
+  return <div className={classNames}>{children}</div>;
 }
 
 export default Gallery;
