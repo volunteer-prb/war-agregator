@@ -1,34 +1,38 @@
 import React from 'react';
 import { useInfiniteQuery } from 'react-query';
 
-import { Response } from '../../api/useApi';
+import { Response, Params } from '../../api/useApi';
+
+type PageParam = Params<'/gallery', 'get'>['query'];
+type FetchParams = {
+  pageParam?: PageParam | undefined;
+};
+
+type SuccessfulResponse = Response<'/gallery', 'get'>[200];
+type FetchResult = SuccessfulResponse['content']['application/json'];
 
 const Gallery = () => {
-  const fetchGallery = React.useCallback(async (args: any) => {
-    const { pageParam: from } = args;
-    const response = await fetch(`/gallery?from=${from ?? Date.now()}`);
-    const results = await response.json();
-    return { results };
-  }, []);
-
-  const { data, isLoading, isError, fetchNextPage } = useInfiniteQuery(
-    'gallery',
-    fetchGallery as any,
-    {
-      getNextPageParam: ({ results }: any) => {
-        if (results.length) {
-          return results[results.length - 1].timestamp;
-        }
-        return undefined;
-      },
-      getPreviousPageParam: ({ results }: any) => {
-        if (results.length) {
-          return results[0].timestamp;
-        }
-        return undefined;
-      },
+  const fetchGallery = React.useCallback(
+    async ({ pageParam }: FetchParams): Promise<FetchResult> => {
+      const response = await fetch(
+        `/gallery?from=${pageParam?.from ?? Date.now()}`,
+      );
+      return await response.json();
     },
+    [],
   );
+
+  const { data, isLoading, isError, fetchNextPage } = useInfiniteQuery<
+    FetchResult,
+    FetchParams
+  >('gallery', fetchGallery, {
+    getNextPageParam: (results) => {
+      if (results.length) {
+        return results[results.length - 1].timestamp;
+      }
+      return undefined;
+    },
+  });
 
   const loadingRef = React.useRef(null);
 
@@ -53,10 +57,8 @@ const Gallery = () => {
   return (
     <div className="flex-1 overflow-auto">
       <div className="grid grid-cols-4">
-        {(data as any).pages.map((page: any) =>
-          page.results.map((val: any) => (
-            <Picture key={val.source} pictureData={val as any} />
-          )),
+        {data?.pages.map((page) =>
+          page.map((val) => <Picture key={val.source} pictureData={val} />),
         )}
         <div ref={loadingRef}>Loading...</div>
       </div>
@@ -64,8 +66,8 @@ const Gallery = () => {
   );
 };
 
-function isInViewport(el: any) {
-  const rect = el.getBoundingClientRect();
+function isInViewport(element: HTMLElement) {
+  const rect = element.getBoundingClientRect();
   return (
     rect.top >= 0 &&
     rect.left >= 0 &&
@@ -75,14 +77,7 @@ function isInViewport(el: any) {
   );
 }
 
-function Picture({
-  pictureData,
-}: {
-  pictureData: Response<
-    '/gallery',
-    'get'
-  >[200]['content']['application/json'][0];
-}) {
+function Picture({ pictureData }: { pictureData: FetchResult[0] }) {
   return (
     <div className="bg-slate-200 rounded-xl m-8 p-8 w-fit hover:scale-110 transition-transform">
       <img alt="thumbnail" src={pictureData.thumbnailImgUrl}></img>
