@@ -15,7 +15,7 @@ export interface paths {
 export interface components {
   schemas: {
     ImageDto: {
-      /** @description Date of publication as ISO string */
+      /** @description UNIX timestamp of publication, ms */
       timestamp: number;
       originalImgUrl: string;
       galleryImgUrl?: string;

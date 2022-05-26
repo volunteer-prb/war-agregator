@@ -85,7 +85,7 @@
         "properties": {
           "timestamp": {
             "type": "number",
-            "description": "Date of publication as ISO string"
+            "description": "UNIX timestamp of publication, ms"
           },
           "originalImgUrl": {
             "type": "string"
@@ -106,11 +106,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "timestamp",
-          "originalImgUrl",
-          "source"
-        ]
+        "required": ["timestamp", "originalImgUrl", "source"]
       },
       "ErrorDto": {
         "type": "object",
@@ -123,10 +119,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "statusCode",
-          "message"
-        ]
+        "required": ["statusCode", "message"]
       }
     }
   }
