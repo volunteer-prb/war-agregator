@@ -9,12 +9,16 @@ import { ApiNotFoundResponse, ApiOkResponse, ApiQuery } from '@nestjs/swagger';
 import { AppService } from './app.service';
 import { ErrorDto } from './error.dto';
 import { ImageDto } from './image.dto';
+import { RobustLoggerService } from './robust-logger/robust-logger.service';
 
 const dayInMS = 1000 * 60 * 60 * 24;
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly logger: RobustLoggerService,
+  ) {}
 
   @Get()
   getHello(): string {
@@ -44,6 +48,7 @@ export class AppController {
     @Query('from', new DefaultValuePipe(Date.now()), ParseIntPipe) from: number,
     @Query('limit', new DefaultValuePipe(32), ParseIntPipe) limit: number,
   ): ImageDto[] {
+    this.logger.info('Gallery is requested', { from, limit });
     const thisDay = Array(limit / 2)
       .fill(null)
       .map((_, i) => {
