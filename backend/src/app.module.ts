@@ -31,6 +31,14 @@ import { TwitterService } from './twitter/twitter.service';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, RobustLoggerService, PacerService, FileStorageService, DbService, TelegramService, TwitterService],
+  providers: [
+    AppService,
+    RobustLoggerService,
+    PacerService,
+    FileStorageService,
+    DbService,
+    TelegramService,
+    TwitterService,
+  ],
 })
 export class AppModule {}

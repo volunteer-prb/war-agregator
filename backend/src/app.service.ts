@@ -14,23 +14,25 @@ export class AppService implements OnApplicationBootstrap {
     private readonly telegram: TelegramService,
     private readonly twitter: TwitterService,
     private readonly db: DbService,
-    private readonly fileStorage: FileStorageService
-  ) { }
+    private readonly fileStorage: FileStorageService,
+  ) {}
 
   private async collectData(startDate: Date) {
     return [
       ...(await this.telegram.collectPictures(startDate)),
-      ...(await this.twitter.collectPictures(startDate))
-    ]
+      ...(await this.twitter.collectPictures(startDate)),
+    ];
   }
 
   async onApplicationBootstrap() {
     this.pacer.run(async () => {
       this.logger.info('Run code');
-      const lastTimeOfDataCollection = this.db.getLastCollectedTime()
-      const crawledPictureList = await this.collectData(lastTimeOfDataCollection)
+      const lastTimeOfDataCollection = this.db.getLastCollectedTime();
+      const crawledPictureList = await this.collectData(
+        lastTimeOfDataCollection,
+      );
       const pictureList = await this.fileStorage.saveToDist(crawledPictureList);
-      await this.db.save(pictureList)
+      await this.db.save(pictureList);
     });
   }
 

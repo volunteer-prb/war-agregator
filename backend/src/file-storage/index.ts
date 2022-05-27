@@ -1,1 +1,1 @@
-export { FileStorageService } from './file-storage.service'
+export { FileStorageService } from './file-storage.service';

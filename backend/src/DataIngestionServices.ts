@@ -1,5 +1,5 @@
-import { CrawledPicture } from "./pictures.entity";
+import { CrawledPicture } from './pictures.entity';
 
 export interface DataIngestionServices {
-    collectPictures(startDate: Date): Promise<CrawledPicture[]>
+  collectPictures(startDate: Date): Promise<CrawledPicture[]>;
 }
