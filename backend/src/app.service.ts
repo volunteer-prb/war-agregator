@@ -15,13 +15,13 @@ export class AppService implements OnApplicationBootstrap {
     private readonly twitter: TwitterService,
     private readonly db: DbService,
     private readonly fileStorage: FileStorageService,
-  ) {}
+  ) { }
 
   private async collectData(startDate: Date) {
-    return [
-      ...(await this.telegram.collectPictures(startDate)),
-      ...(await this.twitter.collectPictures(startDate)),
-    ];
+    return Promise.all([
+      this.telegram.collectPictures(startDate),
+      this.twitter.collectPictures(startDate),
+    ]).then(data => data.flat());
   }
 
   async onApplicationBootstrap() {
