@@ -37,27 +37,27 @@ async function getDescription(post: puppeteer.ElementHandle<Element>) {
 }
 
 async function getPictures(postList: puppeteer.ElementHandle<Element>[]) {
-  const p = await Promise.all(
-    postList
-      .map(async (post) => {
-        const imgList = await post.$$(IMG_CLASS)
-        return imgList.map(async (img): Promise<CrawledPicture> => {
-          const url = await getUrl(img)
-          const date = await getDate(post)
-          const source = await getLink(post)
-          const description = await getDescription(post)
-          return {
-            originalImgUrl: url,
-            source,
-            description,
-            date,
-          }
+  return Promise
+    .all(
+      postList
+        .map(async (post) => {
+          const imgList = await post.$$(IMG_CLASS)
+          return imgList.map(async (img): Promise<CrawledPicture> => {
+            const url = await getUrl(img)
+            const date = await getDate(post)
+            const source = await getLink(post)
+            const description = await getDescription(post)
+            return {
+              originalImgUrl: url,
+              source,
+              description,
+              date,
+            }
+          })
         })
-      })
-  )
-  // const p = []
-  const b = await Promise.all(p.flat())
-  return b
+    )
+    .then(array => array.flat())
+    .then<CrawledPicture[]>(array => Promise.all(array))
 }
 
 @Injectable()
