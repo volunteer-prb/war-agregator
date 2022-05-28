@@ -18,7 +18,7 @@ export class AppController {
   constructor(
     private readonly appService: AppService,
     private readonly logger: RobustLoggerService,
-  ) {}
+  ) { }
 
   @Get()
   getHello(): string {
@@ -59,7 +59,7 @@ export class AppController {
           originalImgUrl: 'https://www.fillmurray.com/3000/2000',
           thumbnailImgUrl: 'https://www.fillmurray.com/300/200',
           galleryImgUrl: 'https://www.fillmurray.com/1920/1080',
-          timestamp: new Date(from),
+          date: new Date(from),
         };
       });
     const prevDay = Array(limit / 2)
@@ -74,7 +74,7 @@ export class AppController {
           originalImgUrl: 'https://www.fillmurray.com/3000/2000',
           thumbnailImgUrl: 'https://www.fillmurray.com/300/200',
           galleryImgUrl: 'https://www.fillmurray.com/1920/1080',
-          timestamp: new Date(from - dayInMS),
+          date: new Date(from - dayInMS),
         };
       });
     return [...thisDay, ...prevDay];

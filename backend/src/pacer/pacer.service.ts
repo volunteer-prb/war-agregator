@@ -15,7 +15,7 @@ export class PacerService {
   constructor(
     private readonly logger: RobustLoggerService,
     private readonly config: ConfigService,
-  ) {}
+  ) { }
 
   run(action: Action) {
     const runAction = async () => {
@@ -27,7 +27,7 @@ export class PacerService {
         this.logger.error('Failed action execution', e);
       }
       this.logger.info('Schedule execution', { actionId });
-      setTimeout(runAction, this.config.get('UPDATE_INTERVAL'));
+      // setTimeout(runAction, this.config.get('UPDATE_INTERVAL'));
     };
     runAction();
   }
