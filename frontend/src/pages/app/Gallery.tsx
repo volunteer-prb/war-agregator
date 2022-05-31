@@ -1,38 +1,12 @@
 import React from 'react';
-import { useInfiniteQuery } from 'react-query';
 
-import { Response, Params } from '../../api/useApi';
+import useInfiniteGallery from '../../api/useInfiniteGallery';
+import { components } from '../../api/open-api';
 
-type PageParam = Params<'/gallery', 'get'>['query'];
-type FetchParams = {
-  pageParam?: PageParam | undefined;
-};
-
-type SuccessfulResponse = Response<'/gallery', 'get'>[200];
-type FetchResult = SuccessfulResponse['content']['application/json'];
+type PictureData = components['schemas']['ImageDto'];
 
 const Gallery = () => {
-  const fetchGallery = React.useCallback(
-    async ({ pageParam }: FetchParams): Promise<FetchResult> => {
-      const response = await fetch(
-        `/gallery?from=${pageParam?.from ?? Date.now()}`,
-      );
-      return await response.json();
-    },
-    [],
-  );
-
-  const { data, isLoading, isError, fetchNextPage } = useInfiniteQuery<
-    FetchResult,
-    FetchParams
-  >('gallery', fetchGallery, {
-    getNextPageParam: (results) => {
-      if (results.length) {
-        return results[results.length - 1].timestamp;
-      }
-      return undefined;
-    },
-  });
+  const { data, isLoading, isError, fetchNextPage } = useInfiniteGallery();
 
   const loadingRef = React.useRef(null);
 
@@ -77,7 +51,7 @@ function isInViewport(element: HTMLElement) {
   );
 }
 
-function Picture({ pictureData }: { pictureData: FetchResult[0] }) {
+function Picture({ pictureData }: { pictureData: PictureData }) {
   return (
     <div className="bg-slate-200 rounded-xl m-8 p-8 w-fit hover:scale-110 transition-transform">
       <img alt="thumbnail" src={pictureData.thumbnailImgUrl}></img>
