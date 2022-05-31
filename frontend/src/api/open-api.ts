@@ -4,11 +4,11 @@
  */
 
 export interface paths {
-  '/': {
-    get: operations['AppController_getHello'];
+  "/": {
+    get: operations["AppController_getHello"];
   };
-  '/gallery': {
-    get: operations['AppController_getGallery'];
+  "/gallery": {
+    get: operations["AppController_getGallery"];
   };
 }
 
@@ -38,7 +38,7 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/json': string;
+          "application/json": string;
         };
       };
     };
@@ -55,13 +55,13 @@ export interface operations {
     responses: {
       200: {
         content: {
-          'application/json': components['schemas']['ImageDto'][];
+          "application/json": components["schemas"]["ImageDto"][];
         };
       };
       /** Not images found */
       404: {
         content: {
-          'application/json': components['schemas']['ErrorDto'];
+          "application/json": components["schemas"]["ErrorDto"];
         };
       };
     };
