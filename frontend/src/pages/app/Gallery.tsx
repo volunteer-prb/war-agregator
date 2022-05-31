@@ -5,7 +5,7 @@ import { components } from '../../api/open-api';
 
 type PictureData = components['schemas']['ImageDto'];
 
-const Gallery = () => {
+export default function Gallery() {
   const { data, isLoading, isError, fetchNextPage } = useInfiniteGallery();
 
   const loadingRef = React.useRef(null);
@@ -38,7 +38,7 @@ const Gallery = () => {
       </div>
     </div>
   );
-};
+}
 
 function isInViewport(element: HTMLElement) {
   const rect = element.getBoundingClientRect();
@@ -73,5 +73,3 @@ function Placeholder({
     .join(' ');
   return <div className={classNames}>{children}</div>;
 }
-
-export default Gallery;
