@@ -11,7 +11,7 @@ type FetchParams = {
 type SuccessfulResponse = Response<'/gallery', 'get'>[200];
 type FetchResult = SuccessfulResponse['content']['application/json'];
 
-const useInfiniteGallery = () => {
+export default function useInfiniteGallery() {
   const fetchGallery = React.useCallback(
     async ({ pageParam }: FetchParams): Promise<FetchResult> => {
       const response = await fetch(
@@ -38,6 +38,4 @@ const useInfiniteGallery = () => {
     () => ({ data, isLoading, isError, fetchNextPage }),
     [data, fetchNextPage, isError, isLoading],
   );
-};
-
-export default useInfiniteGallery;
+}

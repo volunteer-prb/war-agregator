@@ -1,6 +1,7 @@
 import React from 'react';
 
 import useInfiniteGallery from '../../api/useInfiniteGallery';
+import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 import { components } from '../../api/open-api';
 
 type PictureData = components['schemas']['ImageDto'];
@@ -9,16 +10,7 @@ export default function Gallery() {
   const { data, isLoading, isError, fetchNextPage } = useInfiniteGallery();
 
   const loadingRef = React.useRef(null);
-
-  React.useEffect(() => {
-    const onScroll = () => {
-      if (loadingRef.current && isInViewport(loadingRef.current)) {
-        fetchNextPage();
-      }
-    };
-    document.addEventListener('wheel', onScroll);
-    return () => document.removeEventListener('wheel', onScroll);
-  }, [fetchNextPage]);
+  useInfiniteScroll(loadingRef, fetchNextPage);
 
   if (isLoading) {
     return <Placeholder>Loading...</Placeholder>;
@@ -37,17 +29,6 @@ export default function Gallery() {
         <div ref={loadingRef}>Loading...</div>
       </div>
     </div>
-  );
-}
-
-function isInViewport(element: HTMLElement) {
-  const rect = element.getBoundingClientRect();
-  return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <=
-      (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   );
 }
 
