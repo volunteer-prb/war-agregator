@@ -1,8 +1,7 @@
 export class CrawledPicture {
-  timestamp: Date;
+  date: Date;
   originalImgUrl: string;
   source: string;
-  title?: string;
   description?: string;
 }
 
