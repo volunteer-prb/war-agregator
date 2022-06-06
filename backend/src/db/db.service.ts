@@ -1,19 +1,41 @@
 import { Injectable } from '@nestjs/common';
-import { Picture } from 'src/pictures.entity';
-import { RobustLoggerService } from 'src/robust-logger';
+import { CrawledPicture, pictureHash } from '../pictures.entity';
+import { RobustLoggerService } from '../robust-logger';
+import { Picture, PrismaClient } from '../../generated/prisma-client';
 
 @Injectable()
 export class DbService {
-  constructor(private readonly logger: RobustLoggerService) {}
+  private prisma = new PrismaClient()
 
-  getLastCollectedTime(): Date {
-    this.logger.info(
-      'It should get the last collected date based on db data here',
-    );
-    return new Date(Date.now() - 60 * 1000 * 20);
+  constructor(private readonly logger: RobustLoggerService) { }
+
+  async doesNotExist(picture: CrawledPicture): Promise<boolean> {
+    const pictureUrl = `${pictureHash(picture)}.jpg`
+    const count = await this.prisma.picture.count({
+      where: {
+        originalImgUrl: pictureUrl
+      }
+    })
+    this.logger.info('Check img existence', { pictureUrl, count })
+    return count === 0
+  }
+
+  async getFrom(dateFrom: Date, limit: number) {
+    return this.prisma.picture.findMany({
+      take: limit,
+      where: {
+        date: {
+          lte: dateFrom
+        }
+      },
+      orderBy: {
+        date: 'desc'
+      }
+    })
   }
 
   async save(pictureList: Picture[]): Promise<void> {
-    this.logger.info('Pictures should be save to DB', pictureList);
+    this.logger.info('Pictures should be save to DB', { newPicturesCount: pictureList.length });
+    await this.prisma.picture.createMany({ data: pictureList })
   }
 }

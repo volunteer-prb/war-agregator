@@ -9,6 +9,5 @@ export class ImageDto {
   galleryImgUrl?: string;
   thumbnailImgUrl?: string;
   source: string;
-  title?: string;
   description?: string;
 }

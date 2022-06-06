@@ -62,15 +62,17 @@ async function getPictures(postList: puppeteer.ElementHandle<Element>[]) {
 
 @Injectable()
 export class TelegramService
-  implements DataIngestionServices, OnModuleInit, OnModuleDestroy
-{
+  implements DataIngestionServices, OnModuleInit, OnModuleDestroy {
   private page!: puppeteer.Page;
   private browser!: puppeteer.Browser;
-  constructor(private readonly logger: RobustLoggerService) {}
+  constructor(private readonly logger: RobustLoggerService) { }
 
   async onModuleInit() {
-    this.browser = await puppeteer.launch();
-    this.page = await this.browser.newPage();
+    this.browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox']
+    })
+    this.page = await this.browser.newPage()
   }
 
   async onModuleDestroy() {
@@ -87,8 +89,8 @@ export class TelegramService
     return this.page.$$(MSG_CONTAINER_CLASS);
   }
 
-  async collectPictures(startDate: Date): Promise<CrawledPicture[]> {
-    this.logger.info('Telegram data collection should be here', { startDate });
+  async collectPictures(): Promise<CrawledPicture[]> {
+    this.logger.info('Telegram data collection should be here');
     await this.updatePage();
     return await this.allPosts().then(getPictures);
   }

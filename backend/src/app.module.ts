@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-
+import { S3Module } from 'nestjs-s3';
 import { WinstonModule, utilities } from 'nest-winston';
 import { RobustLoggerService } from './robust-logger/robust-logger.service';
 import { PacerService } from './pacer/pacer.service';
@@ -29,6 +29,16 @@ import { TwitterService } from './twitter/twitter.service';
         }),
       ],
     }),
+    S3Module.forRoot({
+      config: {
+        accessKeyId: process.env.MINIO_ROOT_USER,
+        secretAccessKey: process.env.MINIO_ROOT_PASSWORD,
+        endpoint: `${process.env.MINIO_END_POINT}:${process.env.MINIO_PORT}`,
+        s3ForcePathStyle: true,
+        signatureVersion: 'v4',
+        hostPrefixEnabled: false,
+      },
+    }),
   ],
   controllers: [AppController],
   providers: [
@@ -41,4 +51,4 @@ import { TwitterService } from './twitter/twitter.service';
     TwitterService,
   ],
 })
-export class AppModule {}
+export class AppModule { }
