@@ -15,7 +15,7 @@ Service for aggregate news about war in Ukraine
 
 - Run `docker-compose up -d storage` and `docker-compose up -d storage` to bootstrap database and file storage
 - Run `npm run migrate` to setup database at backend
-- Run `npm start` at backend 
+- Run `npm start` at backend
 
 Please, run `npm run gen:api` at frontend to update API schema typings
 
@@ -34,4 +34,3 @@ MINIO_END_POINT=http://localhost
 MINIO_PORT=9000
 GETAWAY_END_POINT=http://localhost
 ```
-

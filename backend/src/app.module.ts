@@ -51,4 +51,4 @@ import { TwitterService } from './twitter/twitter.service';
     TwitterService,
   ],
 })
-export class AppModule { }
+export class AppModule {}

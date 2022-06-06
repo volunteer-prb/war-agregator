@@ -5,7 +5,7 @@ import { RobustLoggerService } from 'src/robust-logger';
 
 @Injectable()
 export class TwitterService implements DataIngestionServices {
-  constructor(private readonly logger: RobustLoggerService) { }
+  constructor(private readonly logger: RobustLoggerService) {}
 
   async collectPictures(): Promise<CrawledPicture[]> {
     this.logger.info('Twitter data collection should be here');

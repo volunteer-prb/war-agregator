@@ -62,17 +62,18 @@ async function getPictures(postList: puppeteer.ElementHandle<Element>[]) {
 
 @Injectable()
 export class TelegramService
-  implements DataIngestionServices, OnModuleInit, OnModuleDestroy {
+  implements DataIngestionServices, OnModuleInit, OnModuleDestroy
+{
   private page!: puppeteer.Page;
   private browser!: puppeteer.Browser;
-  constructor(private readonly logger: RobustLoggerService) { }
+  constructor(private readonly logger: RobustLoggerService) {}
 
   async onModuleInit() {
     this.browser = await puppeteer.launch({
       headless: true,
-      args: ['--no-sandbox']
-    })
-    this.page = await this.browser.newPage()
+      args: ['--no-sandbox'],
+    });
+    this.page = await this.browser.newPage();
   }
 
   async onModuleDestroy() {

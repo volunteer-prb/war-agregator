@@ -9,10 +9,10 @@ type NoNever<T> = { [P in keyof T as T[P] extends never ? never : P]: T[P] };
 
 type Paths = keyof api.paths;
 type Methods<PATH extends Paths> = keyof api.paths[PATH];
-export type Params<
-  PATH extends Paths,
-  METHOD extends Methods<PATH>,
-> = GetOrProp<api.paths[PATH][METHOD], 'parameters'>;
+type Params<PATH extends Paths, METHOD extends Methods<PATH>> = GetOrProp<
+  api.paths[PATH][METHOD],
+  'parameters'
+>;
 export type Response<
   PATH extends Paths,
   METHOD extends Methods<PATH>,
