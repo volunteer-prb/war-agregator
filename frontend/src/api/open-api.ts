@@ -12,8 +12,6 @@ export interface paths {
   };
 }
 
-// hallo
-
 export interface components {
   schemas: {
     ImageDto: {
