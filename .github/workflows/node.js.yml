@@ -35,6 +35,7 @@ jobs:
           cd ../
           npm run prettier
           if git status -s | grep frontend/src/api/open-api.ts > /dev/null; then
+              echo "ERROR! SEE MESSAGE BELOW FOR DETAILS."
               echo "open-api.ts was modified by the "npm run gen:api" command. Run it locally, and commit the changes."
               exit 1
           fi
