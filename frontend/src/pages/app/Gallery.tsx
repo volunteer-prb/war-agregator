@@ -37,7 +37,7 @@ function Pictures(props: { pages: Array<Array<PictureData>> }) {
   props.pages.forEach((page) =>
     page.forEach((val) => {
       if (counter === 8 && elements.length > 0) {
-        elements.push(<div className="separator">Separator</div>);
+        elements.push(<div className="col-span-4 ">Separator</div>);
         counter = 0;
       }
       elements.push(<Picture key={val.source} pictureData={val} />);
