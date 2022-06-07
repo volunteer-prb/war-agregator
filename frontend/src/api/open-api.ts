@@ -19,7 +19,7 @@ export interface components {
        * Format: date-time
        * @description Date of publication as ISO string
        */
-      timestamp: string;
+      date: string;
       originalImgUrl: string;
       galleryImgUrl?: string;
       thumbnailImgUrl?: string;

@@ -83,7 +83,7 @@
       "ImageDto": {
         "type": "object",
         "properties": {
-          "timestamp": {
+          "date": {
             "format": "date-time",
             "type": "string",
             "description": "Date of publication as ISO string"
@@ -107,7 +107,7 @@
             "type": "string"
           }
         },
-        "required": ["timestamp", "originalImgUrl", "source"]
+        "required": ["date", "originalImgUrl", "source"]
       },
       "ErrorDto": {
         "type": "object",

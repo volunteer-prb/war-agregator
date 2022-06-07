@@ -21,7 +21,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "gen:api": "openapi-typescript ../backend/open-api.json --output src/open-api.ts",
+    "gen:api": "openapi-typescript ../backend/open-api.json --output src/api/open-api.ts",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

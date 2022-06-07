@@ -16,7 +16,7 @@ function Picture({
     <div className="bg-slate-200 rounded-xl m-8 p-8 w-fit hover:scale-110 transition-transform">
       <img alt="thumbnail" src={pictureData.thumbnailImgUrl}></img>
       <div> source - {pictureData.source}</div>
-      <div> time - {pictureData.timestamp}</div>
+      <div> time - {pictureData.date}</div>
     </div>
   );
 }
