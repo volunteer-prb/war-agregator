@@ -15,7 +15,7 @@ export class PacerService {
   constructor(
     private readonly logger: RobustLoggerService,
     private readonly config: ConfigService,
-  ) { }
+  ) {}
 
   run(action: Action) {
     const runAction = async () => {

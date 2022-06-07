@@ -18,7 +18,7 @@ export class AppController {
   constructor(
     private readonly appService: AppService,
     private readonly logger: RobustLoggerService,
-  ) { }
+  ) {}
 
   @Get()
   getHello(): string {
