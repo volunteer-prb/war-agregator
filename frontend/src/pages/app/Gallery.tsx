@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import useInfiniteGallery from '../../api/useInfiniteGallery';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
@@ -31,15 +31,21 @@ export default function Gallery() {
 }
 
 function Pictures(props: { pages: Array<Array<PictureData>> }) {
-  return (
-    <React.Fragment>
-      {props.pages
-        .map((page) =>
-          page.map((val) => <Picture key={val.source} pictureData={val} />),
-        )
-        .flat()}
-    </React.Fragment>
+  const elements: Array<ReactNode> = [];
+  let counter = 0;
+
+  props.pages.forEach((page) =>
+    page.forEach((val) => {
+      if (counter === 8 && elements.length > 0) {
+        elements.push(<div className="separator">Separator</div>);
+        counter = 0;
+      }
+      elements.push(<Picture key={val.source} pictureData={val} />);
+      counter++;
+    }),
   );
+
+  return <React.Fragment>{elements}</React.Fragment>;
 }
 
 function Picture({ pictureData }: { pictureData: PictureData }) {
