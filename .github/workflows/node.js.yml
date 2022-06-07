@@ -26,8 +26,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm ci
-      - run: npm run lint
-      - run: npm run prettier-check
+      #      - run: npm run lint
+      #      - run: npm run prettier-check
       - name: Make sure open-api.ts on the client side matches backend API
         run: |
           cd frontend
