@@ -28,7 +28,8 @@ export default function useInfiniteGallery() {
   >('gallery', fetchGallery, {
     getNextPageParam: (results) => {
       if (results.length) {
-        return results[results.length - 1].timestamp;
+        const date = new Date(results[results.length - 1].date);
+        return date.getTime();
       }
       return undefined;
     },
