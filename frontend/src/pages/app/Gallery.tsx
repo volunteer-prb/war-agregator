@@ -37,7 +37,13 @@ function Pictures(props: { pages: Array<Array<PictureData>> }) {
   props.pages.forEach((page) =>
     page.forEach((val) => {
       if (counter === 8 && elements.length > 0) {
-        elements.push(<div className="col-span-4 ">Separator</div>);
+        elements.push(
+          <div className="relative flex py-5 items-center col-span-4">
+            <div className="flex-grow border-t border-gray-400"></div>
+            <span className="flex-shrink mx-4 text-gray-400">Content</span>
+            <div className="flex-grow border-t border-gray-400"></div>
+          </div>,
+        );
         counter = 0;
       }
       elements.push(<Picture key={val.source} pictureData={val} />);
