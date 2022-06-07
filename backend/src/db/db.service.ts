@@ -21,6 +21,7 @@ export class DbService {
   }
 
   async getFrom(dateFrom: Date, limit: number) {
+    this.logger.info('Get pics', { dateFrom });
     return this.prisma.picture.findMany({
       take: limit,
       where: {

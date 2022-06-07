@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "prebuild": "rimraf dist",
+    "prebuild": "npx rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
@@ -28,6 +28,8 @@
     "@prisma/client": "^3.14.0",
     "aws-sdk": "^2.1148.0",
     "axios": "^0.27.2",
+    "nest": "^0.1.6",
+    "nest-cli": "0.0.5",
     "nest-winston": "^1.6.2",
     "nestjs-s3": "^1.0.1",
     "pg": "^8.7.3",
@@ -41,8 +43,7 @@
     "winston": "^3.7.2"
   },
   "devDependencies": {
-    "@types/string-hash": "^1.1.1",
-    "@nestjs/cli": "^8.0.0",
+    "@nestjs/cli": "^8.2.6",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",
     "@types/express": "^4.17.13",
@@ -50,6 +51,7 @@
     "@types/node": "^16.0.0",
     "@types/puppeteer": "^5.4.6",
     "@types/resize-img": "^2.0.1",
+    "@types/string-hash": "^1.1.1",
     "@types/supertest": "^2.0.11",
     "jest": "28.0.3",
     "prettier": "^2.3.2",
