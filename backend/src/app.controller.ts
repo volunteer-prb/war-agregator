@@ -57,7 +57,7 @@ export class AppController {
           originalImgUrl: 'https://www.fillmurray.com/3000/2000',
           thumbnailImgUrl: 'https://www.fillmurray.com/300/200',
           galleryImgUrl: 'https://www.fillmurray.com/1920/1080',
-          timestamp: from - i,
+          date: new Date(from - i),
         };
       });
   }

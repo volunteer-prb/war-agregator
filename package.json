@@ -8,6 +8,7 @@
     "install:backend": "cd backend && npm install",
     "lint": "eslint \"{backend,frontend}/**/*.{ts,tsx}\" --fix",
     "prettier": "prettier --write .",
+    "prepare": "husky install",
     "prettier-check": "prettier --check ."
   },
   "devDependencies": {
@@ -16,6 +17,13 @@
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^12.4.2",
     "prettier": "^2.3.2"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,md,html,scss,css,yml,json}": [
+      "npm run prettier"
+    ]
   }
 }

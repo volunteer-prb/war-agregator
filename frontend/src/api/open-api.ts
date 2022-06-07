@@ -4,19 +4,22 @@
  */
 
 export interface paths {
-  "/": {
-    get: operations["AppController_getHello"];
+  '/': {
+    get: operations['AppController_getHello'];
   };
-  "/gallery": {
-    get: operations["AppController_getGallery"];
+  '/gallery': {
+    get: operations['AppController_getGallery'];
   };
 }
 
 export interface components {
   schemas: {
     ImageDto: {
-      /** @description UNIX timestamp of publication, ms */
-      timestamp: number;
+      /**
+       * Format: date-time
+       * @description Date of publication as ISO string
+       */
+      date: string;
       originalImgUrl: string;
       galleryImgUrl?: string;
       thumbnailImgUrl?: string;
@@ -38,7 +41,7 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": string;
+          'application/json': string;
         };
       };
     };
@@ -55,13 +58,13 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": components["schemas"]["ImageDto"][];
+          'application/json': components['schemas']['ImageDto'][];
         };
       };
       /** Not images found */
       404: {
         content: {
-          "application/json": components["schemas"]["ErrorDto"];
+          'application/json': components['schemas']['ErrorDto'];
         };
       };
     };
