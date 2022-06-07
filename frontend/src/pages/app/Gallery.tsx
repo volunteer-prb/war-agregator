@@ -32,11 +32,15 @@ export default function Gallery() {
 
 function Pictures(props: { pages: Array<Array<PictureData>> }) {
   const elements: Array<ReactNode> = [];
-  let counter = 0;
+  let lastDate = new Date();
 
   props.pages.forEach((page) =>
     page.forEach((val) => {
-      if (counter === 8 && elements.length > 0) {
+      if (
+        lastDate.toDateString() !== new Date(val.date).toDateString() &&
+        elements.length > 0
+      ) {
+        lastDate = new Date(val.date);
         elements.push(
           <div className="relative flex py-5 items-center col-span-4">
             <div className="flex-grow border-t border-gray-400"></div>
@@ -44,10 +48,8 @@ function Pictures(props: { pages: Array<Array<PictureData>> }) {
             <div className="flex-grow border-t border-gray-400"></div>
           </div>,
         );
-        counter = 0;
       }
       elements.push(<Picture key={val.source} pictureData={val} />);
-      counter++;
     }),
   );
 
