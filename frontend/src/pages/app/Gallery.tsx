@@ -23,12 +23,22 @@ export default function Gallery() {
   return (
     <div className="flex-1 overflow-auto">
       <div className="grid grid-cols-4">
-        {data?.pages.map((page) =>
-          page.map((val) => <Picture key={val.source} pictureData={val} />),
-        )}
+        <Pictures pages={data?.pages || []} />
         <div ref={loadingRef}>Loading...</div>
       </div>
     </div>
+  );
+}
+
+function Pictures(props: { pages: Array<Array<PictureData>> }) {
+  return (
+    <React.Fragment>
+      {props.pages
+        .map((page) =>
+          page.map((val) => <Picture key={val.source} pictureData={val} />),
+        )
+        .flat()}
+    </React.Fragment>
   );
 }
 
