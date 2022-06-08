@@ -1,20 +1,22 @@
 {
   "openapi": "3.0.0",
   "paths": {
-    "/": {
+    "/img/{name}": {
       "get": {
-        "operationId": "AppController_getHello",
-        "parameters": [],
+        "operationId": "AppController_getPicture",
+        "parameters": [
+          {
+            "name": "name",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
+            "description": ""
           }
         }
       }
@@ -24,19 +26,19 @@
         "operationId": "AppController_getGallery",
         "parameters": [
           {
-            "name": "from",
+            "name": "limit",
             "required": false,
             "in": "query",
-            "description": "Time until which images should be fetched. Number of ms since the 1st of Jan 1970. Default is now.",
+            "description": "Max number of images that should be fetched. Default 32.",
             "schema": {
               "type": "number"
             }
           },
           {
-            "name": "limit",
+            "name": "from",
             "required": false,
             "in": "query",
-            "description": "Max number of images that should be fetched. Default 32.",
+            "description": "Time until which images should be fetched. Number of ms since the 1st of Jan 1970. Default is now.",
             "schema": {
               "type": "number"
             }
@@ -98,9 +100,6 @@
             "type": "string"
           },
           "source": {
-            "type": "string"
-          },
-          "title": {
             "type": "string"
           },
           "description": {

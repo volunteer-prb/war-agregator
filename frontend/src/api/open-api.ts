@@ -4,8 +4,8 @@
  */
 
 export interface paths {
-  '/': {
-    get: operations['AppController_getHello'];
+  '/img/{name}': {
+    get: operations['AppController_getPicture'];
   };
   '/gallery': {
     get: operations['AppController_getGallery'];
@@ -24,7 +24,6 @@ export interface components {
       galleryImgUrl?: string;
       thumbnailImgUrl?: string;
       source: string;
-      title?: string;
       description?: string;
     };
     ErrorDto: {
@@ -36,23 +35,23 @@ export interface components {
 }
 
 export interface operations {
-  AppController_getHello: {
-    parameters: {};
-    responses: {
-      200: {
-        content: {
-          'application/json': string;
-        };
+  AppController_getPicture: {
+    parameters: {
+      path: {
+        name: string;
       };
+    };
+    responses: {
+      200: unknown;
     };
   };
   AppController_getGallery: {
     parameters: {
       query: {
-        /** Time until which images should be fetched. Number of ms since the 1st of Jan 1970. Default is now. */
-        from?: number;
         /** Max number of images that should be fetched. Default 32. */
         limit?: number;
+        /** Time until which images should be fetched. Number of ms since the 1st of Jan 1970. Default is now. */
+        from?: number;
       };
     };
     responses: {
