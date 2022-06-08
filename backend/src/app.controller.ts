@@ -16,8 +16,6 @@ import { ImageDto } from './image.dto';
 import { RobustLoggerService } from './robust-logger/robust-logger.service';
 import { Response } from 'express';
 
-const dayInMS = 1000 * 60 * 60 * 24;
-
 @Controller()
 export class AppController {
   constructor(

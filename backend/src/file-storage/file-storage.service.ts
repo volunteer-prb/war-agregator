@@ -1,6 +1,5 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { S3 } from 'aws-sdk';
-import * as fs from 'fs';
 import { InjectS3 } from 'nestjs-s3';
 import { CrawledPicture, pictureHash } from '../pictures.entity';
 import { RobustLoggerService } from '../robust-logger';
