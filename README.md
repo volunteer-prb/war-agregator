@@ -6,6 +6,10 @@ Service for aggregate news about war in Ukraine
 
 - Run `npm install` in the root directory to install all dependencies
 
+*
+
+Install pre-commit hooks `npm run prepare`
+
 ### Frontend setup
 
 - Run `docker-compose up` at backend folder to start backend
