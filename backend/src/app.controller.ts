@@ -63,10 +63,12 @@ export class AppController {
   })
   async getGallery(
     @Query('limit', new DefaultValuePipe(32), ParseIntPipe) limit: number,
-    @Query('from') from: number = Date.now(),
+    @Query('from') from: string | null,
   ): Promise<ImageDto[]> {
-    this.logger.info('Gallery is requested', { from, limit });
-    const pictureList = await this.db.getFrom(new Date(from), limit);
+    // dirty fix, I promise to make it right latter
+    const fromDate = from ? new Date(Number.parseInt(from)) : new Date();
+    this.logger.info('Gallery is requested 2', { from, fromDate, limit });
+    const pictureList = await this.db.getFrom(fromDate, limit);
     return Promise.all(
       pictureList.map(async (picture) => {
         const originalImgUrl = await this.files.getImg(picture.originalImgUrl);
