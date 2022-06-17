@@ -26,7 +26,7 @@ export class FileStorageService implements OnModuleInit {
     } catch (e) {
       this.logger.error('Bucket creation failed', e);
     }
-    this.logger.info('Intitialized')
+    this.logger.info('Initialized');
   }
 
   private async saveImgs(img: Buffer, name: string) {

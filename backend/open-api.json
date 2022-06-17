@@ -106,11 +106,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "date",
-          "originalImgUrl",
-          "source"
-        ]
+        "required": ["date", "originalImgUrl", "source"]
       },
       "ErrorDto": {
         "type": "object",
@@ -123,10 +119,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "statusCode",
-          "message"
-        ]
+        "required": ["statusCode", "message"]
       }
     }
   }
