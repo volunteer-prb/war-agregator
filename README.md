@@ -17,7 +17,7 @@ Install pre-commit hooks `npm run prepare`
 
 ### Backend setup
 
-- Run `docker-compose up -d storage` and `docker-compose up -d storage` to bootstrap database and file storage
+- Run `docker-compose up -d db` and `docker-compose up -d storage` to bootstrap database and file storage
 - Run `npm run migrate` to setup database at backend
 - Run `npm start` at backend
 

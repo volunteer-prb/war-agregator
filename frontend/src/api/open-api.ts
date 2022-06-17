@@ -51,7 +51,7 @@ export interface operations {
         /** Max number of images that should be fetched. Default 32. */
         limit?: number;
         /** Time until which images should be fetched. Number of ms since the 1st of Jan 1970. Default is now. */
-        from?: number;
+        from?: string;
       };
     };
     responses: {

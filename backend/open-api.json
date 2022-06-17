@@ -40,7 +40,7 @@
             "in": "query",
             "description": "Time until which images should be fetched. Number of ms since the 1st of Jan 1970. Default is now.",
             "schema": {
-              "type": "number"
+              "type": "string"
             }
           }
         ],
