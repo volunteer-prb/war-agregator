@@ -38,6 +38,9 @@ services:
       - storage
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/prb?schema=public
+      MINIO_ROOT_USER: test_user
+      MINIO_ROOT_PASSWORD: test_password
+      MINIO_PORT: 9000
       MINIO_END_POINT: http://storage
       GETAWAY_END_POINT: http://localhost
     deploy:
