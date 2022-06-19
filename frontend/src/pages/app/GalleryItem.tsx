@@ -53,10 +53,11 @@ function useKeyboardControls(
 
 function Picture({ picture }: { picture: ImageDto }) {
   return (
-    <div className="p-4 flex flex-col justify-center items-center grow">
+    <div className="p-4 flex flex-col justify-center items-center grow space-y-4">
       <div>
         <img alt="thumbnail" src={picture.thumbnailImgUrl} />
       </div>
+      <div>{picture.description}</div>
       <div>
         <div>{picture.date}</div>
         <a

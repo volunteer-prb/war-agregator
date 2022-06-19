@@ -1,13 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import GalleryItem from './GalleryItem';
 import Modal from '../../components/Modal';
 
 import useInfiniteGallery from '../../api/useInfiniteGallery';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 
 import type { ImageDto } from '../../api/types';
-import GalleryItem from './GalleryItem';
 
 export default function Gallery() {
   const { data, isLoading, isError, fetchNextPage, hasMore } =
