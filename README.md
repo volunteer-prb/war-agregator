@@ -4,11 +4,11 @@ Service for aggregate news about war in Ukraine
 
 ## Getting started
 
+- Make sure you have [NVM](https://github.com/nvm-sh/nvm) installed
+- Run `nvm use` to use correct NPM version
+  - You might have to install is separately with `nvm install`
 - Run `npm install` in the root directory to install all dependencies
-
-*
-
-Install pre-commit hooks `npm run prepare`
+- Install pre-commit hooks `npm run prepare`
 
 ### Frontend setup
 
