@@ -19,7 +19,8 @@
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^8.0.1",
     "lint-staged": "^12.4.2",
-    "prettier": "^2.3.2"
+    "prettier": "^2.3.2",
+    "typescript": "^4.7.3"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx,md,html,scss,css,yml,json}": [

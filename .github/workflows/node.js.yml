@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [github-workflows]
+    branches: [master]
   pull_request:
-    branches: [github-workflows]
+    branches: ['**']
 
 jobs:
   build_and_test:
@@ -28,3 +28,14 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run prettier-check
+      - name: Make sure open-api.ts on the client side matches backend API
+        run: |
+          cd frontend
+          npm run gen:api
+          cd ../
+          npm run prettier
+          if git status -s | grep frontend/src/api/open-api.ts > /dev/null; then
+              echo "ERROR! SEE MESSAGE BELOW FOR DETAILS."
+              echo "open-api.ts was modified by the "npm run gen:api" command. Run it locally, and commit the changes."
+              exit 1
+          fi
