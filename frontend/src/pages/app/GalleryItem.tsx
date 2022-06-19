@@ -1,5 +1,7 @@
 import React from 'react';
 
+import * as Icons from '../../components/Icons';
+
 import type { ImageDto } from '../../api/types';
 
 type Props = {
@@ -15,13 +17,13 @@ export default function GalleryItem(props: Props) {
 
   return (
     <div className="flex">
-      <div role="button" tabIndex={0} onClick={onClickPrev}>
-        Back
-      </div>
+      <Button onClick={onClickPrev}>
+        <Icons.ChevronLeft />
+      </Button>
       <Picture picture={picture} />
-      <div role="button" tabIndex={0} onClick={onClickNext}>
-        Forward
-      </div>
+      <Button onClick={onClickNext}>
+        <Icons.ChevronRight />
+      </Button>
     </div>
   );
 }
@@ -50,7 +52,7 @@ function useKeyboardControls(
 
 function Picture({ picture }: { picture: ImageDto }) {
   return (
-    <div className="p-4 flex flex-col justify-center items-center">
+    <div className="p-4 flex flex-col justify-center items-center grow">
       <div>
         <img alt="thumbnail" src={picture.thumbnailImgUrl} />
       </div>
@@ -65,6 +67,25 @@ function Picture({ picture }: { picture: ImageDto }) {
           {picture.source}
         </a>
       </div>
+    </div>
+  );
+}
+
+type ButtonProps = {
+  children: React.ReactNode;
+  onClick: undefined | (() => void);
+};
+
+function Button({ children, onClick }: ButtonProps) {
+  return (
+    <div
+      className="flex items-center px-4 hover:bg-theme-main"
+      role="button"
+      aria-disabled={!onClick}
+      onClick={onClick}
+      tabIndex={0}
+    >
+      {children}
     </div>
   );
 }
