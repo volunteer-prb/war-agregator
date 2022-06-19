@@ -68,7 +68,7 @@ function Body({ hasMore, allPictures, maybeFetchNextPage }: BodyProps) {
   return (
     <React.Fragment>
       <div className="flex-1 overflow-auto">
-        <div className="grid grid-cols-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {allPictures.map((picture, idx) => (
             <Picture
               key={`${picture.source}-${idx}`}
