@@ -10,10 +10,6 @@ import type { ImageDto } from '../../api/types';
 import GalleryItem from './GalleryItem';
 
 export default function Gallery() {
-  const [selectedPictureIdx, setSelectedPictureIdx] = React.useState<
-    number | null
-  >(null);
-
   const { data, isLoading, isError, fetchNextPage, hasMore } =
     useInfiniteGallery();
   const allPictures = React.useMemo(() => data?.pages.flat() ?? [], [data]);
@@ -23,37 +19,6 @@ export default function Gallery() {
       await fetchNextPage();
     }
   }, [hasMore, fetchNextPage]);
-
-  const loadingRef = React.useRef(null);
-  useInfiniteScroll(loadingRef, maybeFetchNextPage);
-
-  React.useEffect(() => {
-    if (selectedPictureIdx === allPictures.length - 1) {
-      maybeFetchNextPage();
-    }
-  }, [allPictures.length, maybeFetchNextPage, selectedPictureIdx]);
-
-  const closeModal = React.useCallback(() => setSelectedPictureIdx(null), []);
-
-  const onPictureClick = React.useCallback((idx: number) => {
-    setSelectedPictureIdx(idx);
-  }, []);
-
-  const selectPrevPicture = React.useCallback(
-    () =>
-      setSelectedPictureIdx((currentIdx) =>
-        currentIdx === null ? null : currentIdx - 1,
-      ),
-    [],
-  );
-
-  const selectNextPicture = React.useCallback(
-    () =>
-      setSelectedPictureIdx((currentIdx) =>
-        currentIdx === null ? null : currentIdx + 1,
-      ),
-    [],
-  );
 
   if (!allPictures.length && !hasMore) {
     return <Placeholder>Nothing found!</Placeholder>;
@@ -67,11 +32,38 @@ export default function Gallery() {
     return <Placeholder className="text-theme-red">Error!</Placeholder>;
   }
 
-  const selectedPicture =
-    selectedPictureIdx === null ? null : allPictures[selectedPictureIdx];
-  const hasNext =
-    selectedPictureIdx !== null && selectedPictureIdx < allPictures.length;
-  const hasPrev = selectedPictureIdx !== null && selectedPictureIdx > 0;
+  return (
+    <Body
+      allPictures={allPictures}
+      hasMore={hasMore}
+      maybeFetchNextPage={maybeFetchNextPage}
+    />
+  );
+}
+
+type BodyProps = {
+  allPictures: Array<ImageDto>;
+  hasMore: boolean;
+  maybeFetchNextPage: () => Promise<void>;
+};
+
+function Body({ hasMore, allPictures, maybeFetchNextPage }: BodyProps) {
+  const [selectedPictureIdx, setSelectedPictureIdx] = React.useState<
+    number | null
+  >(null);
+
+  const loadingRef = React.useRef(null);
+  useInfiniteScroll(loadingRef, maybeFetchNextPage);
+
+  React.useEffect(() => {
+    if (selectedPictureIdx === allPictures.length - 1) {
+      maybeFetchNextPage();
+    }
+  }, [allPictures.length, maybeFetchNextPage, selectedPictureIdx]);
+
+  const onPictureClick = React.useCallback((idx: number) => {
+    setSelectedPictureIdx(idx);
+  }, []);
 
   return (
     <React.Fragment>
@@ -87,16 +79,61 @@ export default function Gallery() {
           {hasMore && <div ref={loadingRef}>Loading...</div>}
         </div>
       </div>
-      <Modal isOpen={!!selectedPicture} onClose={closeModal}>
-        {selectedPicture && (
-          <GalleryItem
-            picture={selectedPicture}
-            onClickNext={hasNext ? selectNextPicture : undefined}
-            onClickPrev={hasPrev ? selectPrevPicture : undefined}
-          />
-        )}
-      </Modal>
+      <PictureModal
+        allPictures={allPictures}
+        selectedPictureIdx={selectedPictureIdx}
+        setSelectedPictureIdx={setSelectedPictureIdx}
+      />
     </React.Fragment>
+  );
+}
+
+type PictureModalProps = {
+  allPictures: Array<ImageDto>;
+  selectedPictureIdx: number | null;
+  setSelectedPictureIdx: React.Dispatch<React.SetStateAction<number | null>>;
+};
+
+function PictureModal(props: PictureModalProps) {
+  const { allPictures, selectedPictureIdx, setSelectedPictureIdx } = props;
+
+  const closeModal = React.useCallback(
+    () => setSelectedPictureIdx(null),
+    [setSelectedPictureIdx],
+  );
+
+  const selectPrevPicture = React.useCallback(
+    () =>
+      setSelectedPictureIdx((currentIdx: number | null) =>
+        currentIdx === null ? null : currentIdx - 1,
+      ),
+    [setSelectedPictureIdx],
+  );
+
+  const selectNextPicture = React.useCallback(
+    () =>
+      setSelectedPictureIdx((currentIdx) =>
+        currentIdx === null ? null : currentIdx + 1,
+      ),
+    [setSelectedPictureIdx],
+  );
+
+  const selectedPicture =
+    selectedPictureIdx === null ? null : allPictures[selectedPictureIdx];
+  const hasNext =
+    selectedPictureIdx !== null && selectedPictureIdx < allPictures.length;
+  const hasPrev = selectedPictureIdx !== null && selectedPictureIdx > 0;
+
+  return (
+    <Modal isOpen={!!selectedPicture} onClose={closeModal}>
+      {selectedPicture && (
+        <GalleryItem
+          picture={selectedPicture}
+          onClickNext={hasNext ? selectNextPicture : undefined}
+          onClickPrev={hasPrev ? selectPrevPicture : undefined}
+        />
+      )}
+    </Modal>
   );
 }
 

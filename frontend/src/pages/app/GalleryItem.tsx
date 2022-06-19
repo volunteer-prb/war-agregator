@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import * as Icons from '../../components/Icons';
 
@@ -79,7 +80,10 @@ type ButtonProps = {
 function Button({ children, onClick }: ButtonProps) {
   return (
     <div
-      className="flex items-center px-4 hover:bg-theme-main"
+      className={classNames('flex items-center px-4', {
+        'hover:bg-theme-main': onClick,
+        'cursor-not-allowed': !onClick,
+      })}
       role="button"
       aria-disabled={!onClick}
       onClick={onClick}
