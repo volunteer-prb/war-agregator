@@ -55,6 +55,10 @@ export default function Gallery() {
     [],
   );
 
+  if (!allPictures.length && !hasMore) {
+    return <Placeholder>Nothing found!</Placeholder>;
+  }
+
   if (isLoading) {
     return <Placeholder>Loading...</Placeholder>;
   }
@@ -80,7 +84,7 @@ export default function Gallery() {
               onClick={() => onPictureClick(idx)}
             />
           ))}
-          <div ref={loadingRef}>Loading...</div>
+          {hasMore && <div ref={loadingRef}>Loading...</div>}
         </div>
       </div>
       <Modal isOpen={!!selectedPicture} onClose={closeModal}>
