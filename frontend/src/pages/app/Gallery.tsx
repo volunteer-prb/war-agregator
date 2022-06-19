@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Modal from '../../components/Modal';
+
 import useInfiniteGallery from '../../api/useInfiniteGallery';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 import { components } from '../../api/open-api';
@@ -7,6 +9,8 @@ import { components } from '../../api/open-api';
 type PictureData = components['schemas']['ImageDto'];
 
 export default function Gallery() {
+  const [selectedPictureIdx, setSelectedPictureIdx] = React.useState(null);
+
   const { data, isLoading, isError, fetchNextPage } = useInfiniteGallery();
 
   const loadingRef = React.useRef(null);
@@ -21,14 +25,19 @@ export default function Gallery() {
   }
 
   return (
-    <div className="flex-1 overflow-auto">
-      <div className="grid grid-cols-4">
-        {data?.pages.map((page) =>
-          page.map((val) => <Picture key={val.source} pictureData={val} />),
-        )}
-        <div ref={loadingRef}>Loading...</div>
+    <React.Fragment>
+      <div className="flex-1 overflow-auto">
+        <div className="grid grid-cols-4">
+          {data?.pages.map((page) =>
+            page.map((val) => <Picture key={val.source} pictureData={val} />),
+          )}
+          <div ref={loadingRef}>Loading...</div>
+        </div>
       </div>
-    </div>
+      <Modal isOpen={selectedPictureIdx === null} onClose={console.log}>
+        Hello!
+      </Modal>
+    </React.Fragment>
   );
 }
 
