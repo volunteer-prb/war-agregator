@@ -31,25 +31,24 @@ export default function Gallery() {
 }
 
 function Pictures(props: { pages: Array<Array<PictureData>> }) {
-  const elements: Array<ReactNode> = [];
   let lastDate = new Date();
+  let elements: Array<ReactNode> = [];
 
-  props.pages.forEach((page) =>
-    page.forEach((val) => {
-      if (
-        lastDate.toDateString() !== new Date(val.date).toDateString() &&
-        elements.length > 0
-      ) {
+  elements = props.pages.flatMap((page) =>
+    page.map((val) => {
+      if (lastDate.toDateString() !== new Date(val.date).toDateString()) {
         lastDate = new Date(val.date);
-        elements.push(
+        console.log('this: ');
+        return [
           <div className="relative flex py-5 items-center col-span-4">
             <div className="flex-grow border-t border-gray-400"></div>
             <span className="flex-shrink mx-4 text-gray-400">Content</span>
             <div className="flex-grow border-t border-gray-400"></div>
           </div>,
-        );
+          <Picture key={val.source} pictureData={val} />,
+        ];
       }
-      elements.push(<Picture key={val.source} pictureData={val} />);
+      return <Picture key={val.source} pictureData={val} />;
     }),
   );
 
