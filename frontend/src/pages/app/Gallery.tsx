@@ -38,7 +38,6 @@ function Pictures(props: { pages: Array<Array<PictureData>> }) {
     page.map((val) => {
       if (lastDate.toDateString() !== new Date(val.date).toDateString()) {
         lastDate = new Date(val.date);
-        console.log('this: ');
         return [
           <div className="relative flex py-5 items-center col-span-4">
             <div className="flex-grow border-t border-gray-400"></div>
@@ -52,6 +51,7 @@ function Pictures(props: { pages: Array<Array<PictureData>> }) {
     }),
   );
 
+  elements = elements.flat();
   return <React.Fragment>{elements}</React.Fragment>;
 }
 
