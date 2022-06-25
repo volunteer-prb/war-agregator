@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import useInfiniteGallery from '../../api/useInfiniteGallery';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
@@ -23,13 +23,36 @@ export default function Gallery() {
   return (
     <div className="flex-1 overflow-auto">
       <div className="grid grid-cols-4">
-        {data?.pages.map((page) =>
-          page.map((val) => <Picture key={val.source} pictureData={val} />),
-        )}
+        <Pictures pages={data?.pages || []} />
         <div ref={loadingRef}>Loading...</div>
       </div>
     </div>
   );
+}
+
+function Pictures(props: { pages: Array<Array<PictureData>> }) {
+  let lastDate = new Date();
+  let elements: Array<ReactNode> = [];
+
+  elements = props.pages.flatMap((page) =>
+    page.map((val) => {
+      if (lastDate.toDateString() !== new Date(val.date).toDateString()) {
+        lastDate = new Date(val.date);
+        return [
+          <div className="relative flex py-5 items-center col-span-4">
+            <div className="flex-grow border-t border-gray-400"></div>
+            <span className="flex-shrink mx-4 text-gray-400">Content</span>
+            <div className="flex-grow border-t border-gray-400"></div>
+          </div>,
+          <Picture key={val.source} pictureData={val} />,
+        ];
+      }
+      return <Picture key={val.source} pictureData={val} />;
+    }),
+  );
+
+  elements = elements.flat();
+  return <React.Fragment>{elements}</React.Fragment>;
 }
 
 function Picture({ pictureData }: { pictureData: PictureData }) {

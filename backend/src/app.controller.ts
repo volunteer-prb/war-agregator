@@ -81,6 +81,7 @@ export class AppController {
           originalImgUrl,
           galleryImgUrl,
           thumbnailImgUrl,
+          date: new Date(from - i * 1000 * 60 * 60),
         };
       }),
     );
